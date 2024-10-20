@@ -1,0 +1,28 @@
+def total_salary(path):
+    try:
+        # Відкриття файлу для читання
+        with open(path, 'r', encoding='utf-8') as file:
+            total = 0
+            count = 0
+            # Прохід по кожному рядку файлу
+            for line in file:
+                # Розділення рядка за комою і отримання зарплати
+                name, salary = line.strip().split(',')
+                total += int(salary)  # Додавання зарплати до загальної суми
+                count += 1  # Лічильник кількості розробників
+            # Обчислення середньої зарплати
+            average = total / count if count > 0 else 0
+            # Повернення загальної та середньої зарплати
+            return total, average
+    except FileNotFoundError:
+        # Обробка випадку, якщо файл не знайдений
+        print("Файл не знайдено.")
+        return 0, 0
+    except Exception as e:
+        # Обробка інших помилок
+        print(f"Виникла помилка: {e}")
+        return 0, 0
+
+# Приклад використання:
+total, average = total_salary("salary_file.txt")
+print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
